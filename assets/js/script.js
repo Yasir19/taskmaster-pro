@@ -45,9 +45,6 @@ var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
-
-
-
 // modal was triggered
 $("#task-form-modal").on("show.bs.modal", function() {
   // clear values
@@ -89,6 +86,22 @@ $("#remove-tasks").on("click", function() {
     $("#list-" + key).empty();
   }
   saveTasks();
+  // task text was clicked 
+  $(".list-group").on("click", "p", function(){
+    // get current text of p element
+    var text = $(this)
+    .text()
+    .trim();
+    // rpleace p element with a new textarea
+    var textInput = $ ('<textarea>')
+    .addClass('form-control')
+    .value(text);
+    $(this).replaceWith(textInput);
+    //auto auto focus new element
+    textInput.trigger('focus');
+    });
+  
+  
 });
 
 // load tasks for the first time
