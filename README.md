@@ -1,22 +1,22 @@
 # taskmaster-pro
 ### the taskmaster user story 
-taskmaster company need to expand there task managment application, the company require me to work with exiting codebase, which was built by using jQuery
-### the app facitionality 
+taskmaster company need to expand their task management application, the company require me to work with the existing codebase, which was built by using jQuery
+### the app functionality 
 1- Users can create tasks with descriptions and due dates.
 
 2- Task data is persistent, thanks to localStorage.
 
 3- The Delete All button can delete tasks.
 
-requirment that must have 
-1- the ablity to edit task and due date 
-2- clicking outside the element turns it back to its original form and save the updateed task to the localStorage 
+the requirement that must have 
+1- the ability to edit the task and due date 
+2- clicking outside the element turns it back to its original form and save the updated task to the localStorage 
 3- enable dragging to move tasks
 4- add calendar datepicker
-5- elert the user when the tasks are close or overdue 
+5- alert the user when the tasks are close or overdue 
 
 
-### the work flow
+### the workflow
 ## day one:
 1- testing the app 
 2-Click on a task's description to turn it into an editable field.
@@ -40,8 +40,7 @@ requirment that must have
 2-Implement custom fonts and icons.
 3-Customize UI colors
 
-## perliminary test result
-1- that app able to create new tasks with due dates.
-2- task data is not presistent, the data will be deleted once we refresh the page.
+## preliminary test result
+1- that app is able to create new tasks with due dates.
+2- task data is not persistent, the data will be deleted once we refresh the page.
 3- delete button is not working  
-
