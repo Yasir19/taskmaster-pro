@@ -88,7 +88,10 @@ $("#task-form-modal .btn-primary").click(function() {
       .trim();
   
     // replace p element with a new textarea
-    var textInput = $("<textarea>").addClass("form-control").val(text);
+    var textInput = $("<textarea>")
+    .addClass("form-control")
+    .val(text);
+    //swap out element 
     $(this).replaceWith(textInput);
   
     // auto focus new element
@@ -119,10 +122,54 @@ $('.list-group').on('blur',"textarea", function (){
   //we need to convert the textarea back to <p> to do that we need 
 // 1- recreate p element 
   var taskP =$ ('<p>')
+  // bootstrap classes 
 .addClass('m-1')
 .text(text);
 //2- replace textarea with p element 
 $(this).replaceWith(taskP);
+});
+//enable the due date to be clicked
+$('.list-group').on('click','span', function(){
+  //get current date 
+  var date=$(this)
+  .text()
+  .trim();
+  // enable the date to be editable 
+  var dateInput =$('<input>')
+  .attr('type','text')
+  .addClass('form-control')
+  .val(date);
+  //swap out element
+  $(this).replaceWith(dateInput);
+  //automatically foucs on new element 
+  dateInput.trigger('foucs');
+});
+// value of the date was changed 
+$('.list-group').on('blur',"input[type='text']", function(){
+  // now we need to get the current text 
+  var date = $(this)
+  .val()
+  .trim();
+  //get the parent ul id attribute 
+  var status = $(this)
+  .closest('.list-group')
+  .attr('id')
+  .replace('list-','');
+  //get the task's position in the list of other li Element
+  var index =$(this)
+  .closest('.list-group-item')
+  .index();
+  console.log(index);
+  // update task in array and resave to localStorage 
+  tasks[status][index].date=date;
+  saveTasks();
+  // recreate span element with bootstrap classes 
+  var taskSpan =$('<span>')
+  .addClass('badge badge-primary badge-pill')
+  .text(date);
+  // replace input with span element 
+  $(this).replaceWith(taskSpan);
+});
 
 // remove all tasks
 $("#remove-tasks").on("click", function() {
@@ -132,7 +179,6 @@ $("#remove-tasks").on("click", function() {
   }
   saveTasks();
   
-});
 });
 
 
