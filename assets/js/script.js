@@ -170,13 +170,80 @@ $('.list-group').on('blur',"input[type='text']", function(){
   // replace input with span element 
   $(this).replaceWith(taskSpan);
 });
-
+//make the list sortable and draggable by using sortable jquery method 
+$(".card .list-group").sortable({
+  connectWith: $(".card .list-group"),
+  scroll:false,
+  tolerance:"pointer",
+  // create a copy of the dragged element and move the copy insted of the original 
+  helper: "clone",
+  //it will apply once the event start to move the list item 
+  activate: function(event){
+    console.log($(this).children());
+  },
+  //trigger once the event end which mean once the click stopped 
+  deactivate: function(event){
+    console.log($(this).children());
+  }, 
+  //trigger once the dragged item enter the connected list 
+  over: function(event){
+    console.log('over',event.target);
+  },
+  //trigger once the dragged item leaves the connected list  
+  out: function(event){
+  console.log("out",event.target);
+  },
+  
+  // the event triggerd when the content of the list has been changed 
+  update:function(event){
+    var tempArr =[];
+    //loop over the current set of children in sortable list
+    $(this).children().each(function(){
+      var text =$(this)
+      .find("p")
+      .text()
+      .trim();
+      var date =$(this)
+      .find("span")
+      .text()
+      .trim();
+      
+      //add tasks data in tempArr as an object
+      tempArr.push({
+        text:text,
+        date:date
+      });
+    });
+    //trim down list's ID to match object property
+     var arrName = $(this)
+     .attr("id")
+     .replace("list-","")
+//update array on task object and save 
+tasks[arrName]=tempArr;
+saveTasks();
+  }
+});
+$("#trash").droppable({
+  accpet: ".card .list-group",
+  tolerance:"touch",
+  drop : function (event, ui){
+    ui.draggable.remove();
+    console.log("drop");
+  },
+  over : function(event,ui){
+    console.log("event");
+  }, 
+  out : function(event,ui){
+    cconsole.log("out");
+  }
+});
 // remove all tasks
 $("#remove-tasks").on("click", function() {
   for (var key in tasks) {
     tasks[key].length = 0;
     $("#list-" + key).empty();
   }
+ 
   saveTasks();
   
 });
